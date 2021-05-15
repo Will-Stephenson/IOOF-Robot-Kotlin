@@ -5,6 +5,8 @@ const val TABLE_SIZE = 5
 
 class Robot (_xPos: Int = 0, _yPos: Int = 0, _direction: CardinalDirection = NORTH) {
 
+    var direction: CardinalDirection = _direction
+
     var xPos: Int = _xPos
         set(value) {
             field = if(value in 1..5) value else 0
@@ -16,8 +18,6 @@ class Robot (_xPos: Int = 0, _yPos: Int = 0, _direction: CardinalDirection = NOR
             field = if(value in 1..5) value else 0
             if(value == 0) println("yPos must be between 1 - 5")
         }
-
-    var direction: CardinalDirection = _direction
 
     fun report(){
         println("${this.xPos},${this.yPos},${this.direction}")
