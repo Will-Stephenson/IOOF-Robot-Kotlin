@@ -10,14 +10,26 @@ class Robot (_xPos: Int = 0, _yPos: Int = 0, _direction: CardinalDirection = NOR
     var xPos: Int = _xPos
         set(value) {
             field = if(value in 1..5) value else 0
-            if(value == 0) println("yPos must be between 1 - 5")
+            if(field == 0) println("yPos must be between 1 - 5")
         }
 
     var yPos: Int = _yPos
         set(value) {
             field = if(value in 1..5) value else 0
-            if(value == 0) println("yPos must be between 1 - 5")
+            if(field == 0) println("yPos must be between 1 - 5")
         }
+
+    fun setPosition(xPos: Int, yPos: Int): Boolean{
+        var validPosition: Boolean = true
+        if (xPos in 1..TABLE_SIZE && yPos in 1..TABLE_SIZE){
+            this.xPos = xPos
+            this.yPos = yPos
+        } else {
+            println("xPos and yPos must be between 1 - $TABLE_SIZE")
+            validPosition = false
+        }
+        return validPosition
+    }
 
     fun report(){
         println("${this.xPos},${this.yPos},${this.direction}")
