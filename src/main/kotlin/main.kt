@@ -20,11 +20,8 @@ fun main(args: Array<String>) {
             } catch (e: FileNotFoundException) {
                 System.out.println("File $fileName not found")
             }
-
         } else print("Input file must be a .txt file")
-
     }
-
 }
 
 
