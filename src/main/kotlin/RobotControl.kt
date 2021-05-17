@@ -28,8 +28,14 @@ object RobotControl {
      * Loop which parses and executes each command in pre-generated list
      */
     fun autoLoop(inputList: ArrayList<String>){
-        var robot = Robot()
-        inputList.forEach{println(it)}
+        val robot = Robot()
+        for(i in inputList){
+            val command: Command = parseInput(i)
+            if (command.commandType != null) {
+                executeCommand(command, robot)
+            }
+            if (command.commandType == EXIT) break
+        }
     }
 
     /**
