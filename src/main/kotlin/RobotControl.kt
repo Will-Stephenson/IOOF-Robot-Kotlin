@@ -38,7 +38,7 @@ object RobotControl {
      * @param input a string containing a single user input
      * @return a Command object which can be null if the input is not valid
      */
-    private fun parseInput(input:String): Command{
+    fun parseInput(input:String): Command{
         val inputList = input.split(" ").toList()
         try {
             val commandType = CommandType.valueOf(inputList[0])
@@ -64,7 +64,7 @@ object RobotControl {
      * @param command a valid, non null command
      * @param robot an initialised robot object
      */
-    private fun executeCommand(command: Command, robot: Robot){
+    fun executeCommand(command: Command, robot: Robot){
         when (command.commandType){
             PLACE -> {
                 var xPos: Int? = null

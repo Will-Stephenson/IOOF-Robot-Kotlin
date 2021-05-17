@@ -77,7 +77,7 @@ class Robot (_xPos: Int = 0, _yPos: Int = 0, _direction: CardinalDirection = NOR
             NORTH -> if (this.yPos < TABLE_SIZE) this.yPos++
             EAST -> if (this.xPos < TABLE_SIZE) this.xPos++
             SOUTH -> if (this.yPos > 1) this.yPos--
-            WEST -> if (this.yPos > 1) this.yPos--
+            WEST -> if (this.xPos > 1) this.xPos--
         }
     }
 
