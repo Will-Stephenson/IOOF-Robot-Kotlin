@@ -100,10 +100,11 @@ object RobotControl {
                     }
                 }
             }
-            REPORT -> println("${robot.xPos}, ${robot.yPos}, ${robot.direction}")
-            MOVE -> robot.move()
-            LEFT -> robot.rotate(Direction.LEFT)
-            RIGHT -> robot.rotate(Direction.RIGHT)
+            // Check that the robot has been placed before executing any non-PLACE or EXIT commands
+            REPORT -> if (robot.xPos != 0) robot.report()
+            MOVE -> if (robot.xPos != 0) robot.move()
+            LEFT -> if (robot.xPos != 0) robot.rotate(Direction.LEFT)
+            RIGHT -> if (robot.xPos != 0) robot.rotate(Direction.RIGHT)
             EXIT -> println("Closing program")
         }
     }
