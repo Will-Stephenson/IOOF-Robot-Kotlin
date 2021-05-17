@@ -1,43 +1,45 @@
 import java.lang.IllegalArgumentException
 import CommandType.*
 
+/**
+ * Object which allows the user to interact with the program
+ * This can be done either directly or through a .txt input file which holds commands
+ */
 object RobotControl {
 
 
-
+    /**
+     * Loop which continues to receive direct user inputs until the EXIT command is issued
+     */
     fun controlLoop(){
-        var robot = Robot();
+        val robot = Robot()
         var continueLoop = true
-        var commandType: CommandType
-        while(continueLoop)  {
+        while(continueLoop) {
             val input = readLine() ?: "NONE"
-            val inputList = input.split(" ").toList()
             val command: Command = parseInput(input)
-            if (command.commandType != null){
+            if (command.commandType != null) {
                 executeCommand(command, robot)
             }
-            /*try {
-                commandType = CommandType.valueOf(inputList[0])
-                if (commandType == EXIT) continueLoop = false
-                when (inputList.size){
-                    1 -> executeCommand(commandType)
-                    2 -> executeCommand(commandType, inputList[1].split(",").toList())
-                    else -> println("Please enter a valid command")
-                }
-            } catch (e: IllegalArgumentException) {
-                println("Please enter a valid command")
-            }*/
+            if (command.commandType == EXIT) continueLoop = false // Break the loop if the command is 'EXIT'
         }
     }
 
+    /**
+     * Loop which parses and executes each command in pre-generated list
+     */
     fun autoLoop(inputList: ArrayList<String>){
-        var robot = Robot();
+        var robot = Robot()
         inputList.forEach{println(it)}
     }
 
+    /**
+     * Parse one line of input and return it as a valid Command object
+     * Will return a null Command if the command is not valid
+     * @param input a string containing a single user input
+     * @return a Command object which can be null if the input is not valid
+     */
     private fun parseInput(input:String): Command{
         val inputList = input.split(" ").toList()
-
         try {
             val commandType = CommandType.valueOf(inputList[0])
             when (inputList.size){
@@ -57,38 +59,46 @@ object RobotControl {
         return Command()
     }
 
-
+    /**
+     * Execute a Command on a Robot
+     * @param command a valid, non null command
+     * @param robot an initialised robot object
+     */
     private fun executeCommand(command: Command, robot: Robot){
-        /*println(command.commandType)
-        println(command.args)*/
         when (command.commandType){
             PLACE -> {
                 var xPos: Int? = null
                 var yPos: Int? = null
                 var direction: CardinalDirection? = null
+                // Parse command arguments if they exist and are the right format, if not print error message
                 if (command.args != null){
                     if (command.args!!.size == 3){
+                        // Try to set the variables needed to place the robot if all types are correct
                         try {
                             xPos = command.args!![0].toInt()
                             yPos = command.args!![1].toInt()
                             direction = CardinalDirection.valueOf(command.args!![2])
                             //robot.direction = direction
-                            } catch (e: IllegalArgumentException){
+                        } catch (e: IllegalArgumentException){
                             println("Please enter valid arguments: e.g. 1,2,NORTH")
                         }
                     }
-
+                } else {
+                    println("Please enter valid arguments: e.g. 1,2,NORTH")
                 }
+                // Execute the placement if all arguments are correct
                 if (xPos  != null && yPos != null && direction != null){
+                    // Only set the direction if the position is valid
                     if (robot.setPosition(xPos,yPos)){
                         robot.direction = direction
                     }
-
-                   }
-
+                }
             }
             REPORT -> println("${robot.xPos}, ${robot.yPos}, ${robot.direction}")
-
+            MOVE -> robot.move()
+            LEFT -> robot.rotate(Direction.LEFT)
+            RIGHT -> robot.rotate(Direction.RIGHT)
+            EXIT -> println("Closing program")
         }
     }
 
