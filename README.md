@@ -14,7 +14,7 @@ To run the application:
 2. Open a terminal
 3. Navigate to the root directory of your local copy of the repository
 4. Ensure Java 11 is in your $PATH
-5. Execute `java -jar out/artifacts/Robot-Kotlin_jar/Robot-Kotlin.jar input.txt`
+5. Execute `java -jar out/artifacts/Robot_Kotlin_jar/Robot-Kotlin.jar input.txt`
 
 ## How to Use
 Place the robot to begin. The robot can move and turn on the 5x5 unit table.

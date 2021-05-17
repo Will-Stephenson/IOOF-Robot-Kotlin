@@ -45,7 +45,7 @@ object RobotControl {
      * @return a Command object which can be null if the input is not valid
      */
     fun parseInput(input:String): Command{
-        val inputList = input.split(" ").toList()
+        val inputList = input.split(" ").toList() // Separate the Command from the argument (if passed)
         try {
             val commandType = CommandType.valueOf(inputList[0])
             when (inputList.size){
@@ -53,7 +53,6 @@ object RobotControl {
                     return Command(commandType)
                 }
                 2 -> {
-                    //executeCommand(command, inputList[1].split(",").toList())
                     val args = inputList[1].split(",").toList()
                     return Command(commandType,args)
                 }
@@ -84,7 +83,6 @@ object RobotControl {
                             xPos = command.args!![0].toInt()
                             yPos = command.args!![1].toInt()
                             direction = CardinalDirection.valueOf(command.args!![2])
-                            //robot.direction = direction
                         } catch (e: IllegalArgumentException){
                             println("Please enter valid arguments: e.g. 1,2,NORTH")
                         }

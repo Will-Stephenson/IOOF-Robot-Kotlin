@@ -7,7 +7,6 @@ import java.io.FileNotFoundException
  * User input must be in a .txt file
  */
 fun main(args: Array<String>) {
-
     if (args.isEmpty()) RobotControl.controlLoop() else {
         val fileName: String = args[0]
         val fileExtension: String = fileName.substring(fileName.indexOf('.'))
@@ -18,7 +17,7 @@ fun main(args: Array<String>) {
                 inputFile.forEachLine { inputList.add(it) }
                 RobotControl.autoLoop(inputList)
             } catch (e: FileNotFoundException) {
-                System.out.println("File $fileName not found")
+                println("File $fileName not found")
             }
         } else print("Input file must be a .txt file")
     }
